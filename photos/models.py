@@ -97,6 +97,19 @@ class Post(models.Model):
       except self.DoesNotExist:
             print('Image you specified does not exist') 
 
+	
+  @classmethod
+  def get_all(cls):
+        post = Post.objects.all()
+        return post		
+
+
+
+  @classmethod
+  def get_by_id(cls, id):
+        post = cls.objects.get(id=id)	
+        return post
+
 
 
 
