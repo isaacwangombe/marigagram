@@ -14,5 +14,3 @@ def photo(request):
   post = Post.get_by_id(id)
 
   return render(request, 'photos/photo.html', {'post':post, 'id':id})
-
-
