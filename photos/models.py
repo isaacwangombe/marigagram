@@ -1,7 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 # Create your models here.
-class User(models.Model):
+class Editor(models.Model):
   first_name = models.CharField(max_length=30)
   last_name = models.CharField(max_length=30)
   user_name = models.CharField(max_length=30)
@@ -80,7 +82,7 @@ class Post(models.Model):
   image = models.ImageField(upload_to='posts/')
   image_name = models.CharField(max_length=30)
   caption = models.TextField(max_length=300)
-  user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
   post_time = models.DateTimeField(auto_now_add=True)
   location = models.ManyToManyField(Location)
   tag = models.ManyToManyField(Tag)
