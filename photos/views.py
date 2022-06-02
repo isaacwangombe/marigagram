@@ -1,6 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http  import HttpResponse
 from .models import User, Post, Comment, Location, Tag
+from .forms import PostForm
+from django.contrib.auth.decorators import login_required
+
+
 
 
 def post(request):
@@ -36,3 +40,21 @@ def search_tag(request):
 		message = f'{search_term}'
 
 		return render(request, 'photos/tag.html', {'message':message, 'name':name})
+
+
+
+@login_required(login_url='/accounts/login/')
+def new_post(request):
+  current_user = request.user
+  if request.method == 'POST':
+    form = PostForm(request.POST, request.FILES)
+    if form.is_valid():
+      upload = form.save(commit=False)
+      upload.user = current_user
+      upload.save()
+    return redirect(post)
+  else:
+    form=PostForm()
+
+  return render(request, 'photos/new_post.html', {'form': form})
+

@@ -11,6 +11,7 @@ urlpatterns=[
   path('photo/<id>',views.photo, name='photo' ),
   path('user/', views.search_user,name = 'user'),
   path('tag/', views.search_tag,name = 'user'),
+  path('post/new/', views.new_post, name='new_post')
 
 ]
 

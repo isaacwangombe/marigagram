@@ -9,7 +9,7 @@ class PostAdmin(admin.ModelAdmin):
   filter_horizontal =('location','tag')
 
 admin.site.register(User)
-admin.site.register(Post)
+admin.site.register(Post, PostAdmin)
 admin.site.register(Comment)
 admin.site.register(Location)
 admin.site.register(Tag)
