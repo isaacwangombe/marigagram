@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class User(models.Model):
+class Profile(models.Model):
   first_name = models.CharField(max_length=30)
   last_name = models.CharField(max_length=30)
   user_name = models.CharField(max_length=30)
@@ -78,6 +78,7 @@ class Tag(models.Model):
 
 class Post(models.Model):
   image = models.ImageField(upload_to='posts/')
+  image_name = models.CharField(max_length=30)
   caption = models.TextField(max_length=300)
   user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
   post_time = models.DateTimeField(auto_now_add=True)

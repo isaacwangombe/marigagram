@@ -4,10 +4,10 @@ from .models import User, Post, Comment, Location, Tag
 
 
 def post(request):
-  post = Post.get_all()
-  tag = Tag.get_all_tags()
+  posts = Post.get_all()
+  tags = Tag.get_all_tags()
   
-  return render(request,'photos/posts.html', {'post' : post, 'tag':tag})
+  return render(request,'photos/posts.html', {'posts' : posts, 'tags':tags})
 
 
 
