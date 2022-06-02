@@ -8,7 +8,8 @@ from django.urls import path
 
 urlpatterns=[
   path('', views.post,name = 'post'),
-  path('photo/<id>',views.photo, name='photo' )
+  path('photo/<id>',views.photo, name='photo' ),
+  path('user', views.post,name = 'user'),
 ]
 
 if settings.DEBUG:

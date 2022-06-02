@@ -69,6 +69,11 @@ class Tag(models.Model):
       except self.DoesNotExist:
             print('Image you specified does not exist') 
 
+  @classmethod
+  def get_all_tags(cls):
+        tag = Tag.objects.all()
+        return tag	
+
 
 
 class Post(models.Model):
@@ -109,6 +114,16 @@ class Post(models.Model):
   def get_by_id(cls, id):
         post = cls.objects.get(id=id)	
         return post
+
+  @classmethod
+  def search_by_user(id, user):
+        retrieved = id.objects.filter(user__user_name__contains=user)
+        return retrieved
+
+  @classmethod
+  def search_by_tag(id, tag):
+        retrieved = id.objects.filter(user__user_name__contains=tag)
+        return retrieved
 
 
 
