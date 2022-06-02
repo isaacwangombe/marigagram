@@ -5,8 +5,9 @@ from .models import User, Post, Comment, Location, Tag
 
 def post(request):
   post = Post.get_all()
+  tag = Tag.get_all_tags()
   
-  return render(request,'photos/posts.html', {'post' : post})
+  return render(request,'photos/posts.html', {'post' : post, 'tag':tag})
 
 
 
@@ -34,4 +35,4 @@ def search_tag(request):
 		name = Post.search_by_tag(search_term)
 		message = f'{search_term}'
 
-		return render(request, 'html3.html', {'message':message, 'name':name})
+		return render(request, 'photos/tag.html', {'message':message, 'name':name})
