@@ -3,7 +3,9 @@
 <h1>{{post.user}}</h1>
 <p>{{post.caption}}</p>
 <p>{{post.post_time}}</p>
-{% for location in post.location.all%}
+<a href="/new_comment/{{post.id}}">Comment</a>
+<p>{{comment}}</p>
+{% for comment in post.comment.all%} {% endfor%} {% for location in post.location.all%}
 <p>{{location}}</p>
 {% endfor%} {% for tag in post.tag.all%}
 

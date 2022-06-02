@@ -11,6 +11,7 @@ def post(request):
   posts = Post.get_all()
   tags = Tag.get_all_tags()
   
+  
   return render(request,'photos/posts.html', {'posts' : posts, 'tags':tags})
 
 
@@ -57,4 +58,24 @@ def new_post(request):
     form=PostForm()
 
   return render(request, 'photos/new_post.html', {'form': form})
+
+
+@login_required(login_url='/accounts/login/')
+def new_comment(request, id):
+  post = Post.get_by_id(id)
+  current_user = request.user
+  if request.method == 'POST':
+    form = PostForm(request.POST, request.FILES)
+    if form.is_valid():
+      upload = form.save(commit=False)
+      upload.user = current_user
+      upload.save()
+    return redirect(post)
+  else:
+    form=PostForm()
+
+  return render(request, 'photos/new_comment.html', {'form': form, 'id':id})
+
+
+
 
