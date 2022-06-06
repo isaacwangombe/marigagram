@@ -13,7 +13,9 @@ urlpatterns=[
   path('tag/', views.search_tag,name = 'user'),
   path('post/new/', views.new_post, name='new_post'),
   path('new_comment/<id>',views.new_comment, name='new_comment' ),
-  path('profile/<profile_name>',views.profile, name='profile' ),
+  path('profile/<id>',views.profile, name='profile' ),
+  path('update/profile', views.update_profile, name='update_profile'),
+
 
 
 ]

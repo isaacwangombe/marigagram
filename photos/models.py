@@ -4,28 +4,39 @@ from django.contrib.auth.models import User as Editor
 
 # Create your models here.
 class Profile(models.Model):
-  user_name = models.CharField(max_length=30)
   profile_image = models.ImageField(upload_to='posts/', null=True, blank=True)
   about = models.TextField(max_length=300, null=True, blank=True)
-  user = models.ForeignKey(Editor, on_delete=models.DO_NOTHING, null=True, blank=True )
+  user = models.ForeignKey(Editor, on_delete=models.CASCADE, null=True, blank=True )
 
   def __str__(self):
     return str(self.id)
 
-  def save_user(self):
+  def save_profile(self):
     self.save()  	
 
-  def delete_user(self):
+  def delete_profile(self):
     self.delete()	
 
 
-  def update_user(self, new_user):
+  def update_profile(self, new_profile):
       try:
-          self.user_name= new_user
+          self.id= new_profile
           self.save()
           return self
       except self.DoesNotExist:
             print('Image you specified does not exist') 
+
+  @classmethod
+  def get_all(cls):
+        profile = Profile.objects.all()
+        return profile		
+
+
+
+  @classmethod
+  def get_by_id(cls, id):
+        profile = cls.objects.get(id=id)	
+        return profile
 
 
 class Location(models.Model):
@@ -81,7 +92,7 @@ class Post(models.Model):
   image = models.ImageField(upload_to='posts/')
   image_name = models.CharField(max_length=30)
   caption = models.TextField(max_length=300)
-  user = models.ForeignKey(Editor, on_delete=models.DO_NOTHING, )
+  user = models.ForeignKey(Editor, on_delete=models.CASCADE, )
   post_time = models.DateTimeField(auto_now_add=True)
   location = models.ManyToManyField(Location)
   tag = models.ManyToManyField(Tag)
@@ -133,8 +144,8 @@ class Post(models.Model):
 class Comment(models.Model):
   comment= models.TextField(max_length=300)
   post_time = models.DateTimeField(auto_now_add=True)
-  post = models.ForeignKey(Post, on_delete=models.DO_NOTHING)
-  user = models.ForeignKey(Editor, on_delete=models.DO_NOTHING, )
+  post = models.ForeignKey(Post, on_delete=models.CASCADE)
+  user = models.ForeignKey(Editor, on_delete=models.CASCADE)
 
 
   def __str__(self):

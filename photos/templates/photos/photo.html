@@ -1,0 +1,26 @@
+{%extends 'photos/base.html'%} {% block content %} {{block.super}}
+<div class="container" style="display: grid ; place-items:center;">
+    <div class="card mb-3" style="margin: 30px; max-width: 500px; max-height: auto;">
+        <div class="card-body">
+            <h5 class="card-title">{{post.user}}</h5>
+            <p class="card-text"> {% for location in post.location.all%}
+                <p>{{location}}</p>
+                {% endfor%}</p>
+        </div>
+
+        <img class="card-img-bottom" src="{{post.image.url}}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{post.image_name}}</h5>
+            <p class="card-text">{{post.caption}}</p>
+            {% for comment in post.comment_set.all%}
+            <p>{{comment.user}} :{{comment}}</p> {% endfor%}
+            <p class="card-text"> {% for tag in post.tag.all%}
+                <p>{{tag}}</p>
+                {% endfor%}</p>
+            <p class="card-text"><small class="text-muted">{{post.post_time}}</small></p>
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}

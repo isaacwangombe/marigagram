@@ -1,21 +1,29 @@
- {%extends 'photos/base.html'%} {% load django_bootstrap5 %}{% block content %} {{block.super}} {% for post in posts %}
+{%extends 'photos/base.html'%} {% block content %} {{block.super}} {% for post in posts %}
+<div class="container" style="display: grid ; place-items:center;">
+    <div class="card mb-3" style="margin: 30px; max-width: 500px; max-height: auto;">
+        <div class="card-body">
+            <h5 class="card-title">{{post.user}}</h5>
+            {% for profile in post.profile%}
+            <p>{{about}}</p> {% endfor%}
+            <!-- <img src="{{post.profile.}}" alt=""> -->
+            <p class="card-text"> {% for location in post.location.all%}
+                <p>{{location}}</p>
+                {% endfor%}</p>
+        </div>
 
-<h1>{{post.user}}</h1>
-<p>{{post.caption}}</p>
-<p>{{post.post_time}}</p>
+        <img class="card-img-bottom" src="{{post.image.url}}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{post.image_name}}</h5>
+            <p class="card-text">{{post.caption}}</p>
+            <a href="{%url 'new_comment' post.id%}">All comments</a> {% for comment in post.comment_set.all%}
+            <p>{{comment.user}} :{{comment}}</p> {% endfor%}
+            <p class="card-text"> {% for tag in post.tag.all%}
+                <p>{{tag}}</p>
+                {% endfor%}</p>
+            <p class="card-text"><small class="text-muted">{{post.post_time}}</small></p>
 
-<!-- <p>{{post.comment_set.all}}</p> -->
-<a href="{%url 'new_comment' post.id%}">Comment</a> {% for comment in post.comment_set.all%}
-<p>{{comment}} {{comment.user}}</p> {% endfor%}
 
-
-
-
-<!-- {% for location in post.location.all%}
-<p>{{location}}</p>
-{% endfor%} {% for tag in post.tag.all%}
-
-<p>{{tag}}</p>
-{% endfor%} -->
-
-<img src="{{post.image.url}}" alt="" style="height:200px ; width:auto;"> {% endfor%} {% endblock %}
+        </div>
+    </div>
+</div>
+{% endfor%} {% endblock %}

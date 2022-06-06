@@ -61,20 +61,7 @@ def new_post(request):
   return render(request, 'photos/new_post.html', {'form': form})
 
 
-@login_required(login_url='/accounts/login/')
-def update_profile(request):
-  current_user = request.user
-  if request.method == 'POST':
-    form = ProfileForm(request.POST, request.FILES)
-    if form.is_valid():
-      profile = form.save(commit=False)
-      profile.profile_name = current_user
-      profile.save()
-    return redirect('post')
-  else:
-    form=ProfileForm()
 
-  return render(request, 'django_registration/registration_complete.html', {'form': form})
 
 @login_required(login_url='/accounts/login/')
 def new_comment(request, id):
@@ -95,4 +82,25 @@ def new_comment(request, id):
 
 
 
+def profile(request, id):
+  profile = Profile.get_by_id(id)
 
+  return render(request,'registration/profile.html', {'profile' : profile, 'id':id})
+
+
+
+
+@login_required(login_url='/accounts/login/')
+def update_profile(request):
+  current_user = request.user
+  if request.method == 'POST':
+    form = ProfileForm(request.POST, request.FILES)
+    if form.is_valid():
+      profile = form.save(commit=False)
+      profile.user = current_user
+      profile.save()
+    return redirect('post')
+  else:
+    form=ProfileForm()
+
+  return render(request, 'photos/update_profile.html', {'form': form})
