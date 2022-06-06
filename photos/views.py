@@ -1,8 +1,9 @@
 from django.shortcuts import redirect, render
 from django.http  import HttpResponse
-from .models import User, Post, Comment, Location, Tag
-from .forms import PostForm
+from .models import Profile, Post, Comment, Location, Tag
+from .forms import PostForm, CommentForm, ProfileForm
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 
 
 
@@ -53,7 +54,7 @@ def new_post(request):
       upload = form.save(commit=False)
       upload.user = current_user
       upload.save()
-    return redirect(post)
+    return redirect('post')
   else:
     form=PostForm()
 
@@ -61,20 +62,36 @@ def new_post(request):
 
 
 @login_required(login_url='/accounts/login/')
-def new_comment(request, id):
-  post = Post.get_by_id(id)
+def update_profile(request):
   current_user = request.user
   if request.method == 'POST':
-    form = PostForm(request.POST, request.FILES)
+    form = ProfileForm(request.POST, request.FILES)
     if form.is_valid():
-      upload = form.save(commit=False)
-      upload.user = current_user
-      upload.save()
-    return redirect(post)
+      profile = form.save(commit=False)
+      profile.profile_name = current_user
+      profile.save()
+    return redirect('post')
   else:
-    form=PostForm()
+    form=ProfileForm()
 
-  return render(request, 'photos/new_comment.html', {'form': form, 'id':id})
+  return render(request, 'django_registration/registration_complete.html', {'form': form})
+
+@login_required(login_url='/accounts/login/')
+def new_comment(request, id):
+  current_user = request.user
+  post = Post.get_by_id(id)
+  if request.method == 'POST':
+    form = CommentForm(request.POST)
+    if form.is_valid():
+      comment = form.save(commit=False)
+      comment.user = current_user
+      comment.post = post
+      comment.save()
+    return redirect('post')
+  else:
+    form=CommentForm()
+
+  return render(request, 'photos/new_comment.html', {'form': form, 'id':id, "post":post})
 
 
 

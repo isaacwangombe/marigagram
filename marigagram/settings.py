@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'marigagram.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'marigagram',
+        'NAME': 'marigagram2',
         'USER': 'mariga',
     'PASSWORD':'password',
     }

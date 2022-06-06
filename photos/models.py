@@ -3,15 +3,14 @@ from django.contrib.auth.models import User as Editor
 
 
 # Create your models here.
-class User(models.Model):
-  first_name = models.CharField(max_length=30)
-  last_name = models.CharField(max_length=30)
+class Profile(models.Model):
   user_name = models.CharField(max_length=30)
-  password = models.CharField(max_length=30)
-  email = models.EmailField()
+  profile_image = models.ImageField(upload_to='posts/', null=True, blank=True)
+  about = models.TextField(max_length=300, null=True, blank=True)
+  user = models.ForeignKey(Editor, on_delete=models.DO_NOTHING, null=True, blank=True )
 
   def __str__(self):
-    return self.user_name
+    return str(self.id)
 
   def save_user(self):
     self.save()  	
@@ -82,7 +81,7 @@ class Post(models.Model):
   image = models.ImageField(upload_to='posts/')
   image_name = models.CharField(max_length=30)
   caption = models.TextField(max_length=300)
-  user = models.ForeignKey(Editor, on_delete=models.DO_NOTHING)
+  user = models.ForeignKey(Editor, on_delete=models.DO_NOTHING, )
   post_time = models.DateTimeField(auto_now_add=True)
   location = models.ManyToManyField(Location)
   tag = models.ManyToManyField(Tag)
@@ -134,8 +133,9 @@ class Post(models.Model):
 class Comment(models.Model):
   comment= models.TextField(max_length=300)
   post_time = models.DateTimeField(auto_now_add=True)
-  user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
   post = models.ForeignKey(Post, on_delete=models.DO_NOTHING)
+  user = models.ForeignKey(Editor, on_delete=models.DO_NOTHING, )
+
 
   def __str__(self):
     return self.comment
@@ -154,3 +154,5 @@ class Comment(models.Model):
           return self
       except self.DoesNotExist:
             print('Comment you specified does not exist') 
+
+  
