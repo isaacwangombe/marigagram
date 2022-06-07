@@ -53,6 +53,7 @@ class Post(models.Model):
   image_name = models.CharField(max_length=30)
   caption = models.TextField(max_length=300)
   user = models.ForeignKey(Editor, on_delete=models.CASCADE, )
+  profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True )
   post_time = models.DateTimeField(auto_now_add=True)
 
   def __str__(self):

@@ -3,7 +3,7 @@
     <div class="card mb-3" style="margin: 30px; max-width: 500px; max-height: auto;">
         <div class="card-body">
             <h5 class="card-title">
-                <a href="{% url 'profile' post.user.id%}" style="text-decoration: none; color:black"> {{post.user}}</a>
+                <a href="{% url 'profile' post.user.id%}" style="text-decoration: none; color:black"><img src="{{profile.profile_image.url}}" class="img-thumbnail" style="height:60px ; width:60px; border-radius: 50%; object-fit: cover;" alt="..."> {{post.user}}</a>
             </h5>
         </div>
 
