@@ -13,7 +13,7 @@ urlpatterns=[
   path('post/new/', views.new_post, name='new_post'),
   path('new_comment/<id>',views.new_comment, name='new_comment' ),
   path('profile/<user>',views.profile, name='profile' ),
-  path('accounts/register/complete/<user>', views.update_profile, name='update_profile'),
+  path('accounts/register/complete/', views.update_profile, name='update_profile'),
 
 
 

@@ -103,38 +103,32 @@ def profile(request, user):
 
 
 
+@login_required(login_url='/accounts/login/')
+def update_profile(request):
+  current_user = request.user
+  if request.method == 'POST':
+    form = ProfileForm(request.POST, request.FILES)
+    if form.is_valid():
+      profile = form.save(commit=False)
+      profile.user = current_user
+      profile.save()
+    return redirect('post')
+  else:
+    form=ProfileForm()
+
+  return render(request, 'django_registration/registration_complete.html', {'form': form})
+
 # @login_required(login_url='/accounts/login/')
 # def update_profile(request):
-#   current_user = request.user
-#   if request.method == 'POST':
-#     form = ProfileForm(request.POST, request.FILES)
-#     if form.is_valid():
-#       profile = form.save(commit=False)
-#       profile.user = current_user
-#       profile.save()
-#     return redirect('post')
-#   else:
-#     form=ProfileForm()
-
-#   return render(request, 'photos/update_profile.html', {'form': form})
-
-@login_required(login_url='/accounts/login/')
-def update_profile(request, user):
-    title = 'Edit Profile'
-    profile = Editor.objects.get(username=request.user)
-    try:
-        profile_details = Profile.get_by_id(profile.id)
-    except:
-        profile_details = Profile.filter_by_id(profile.id)
+#     current_user = request.user
+#     if request.method == 'POST':
+#         form = ProfileForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             edit = form.save(commit=False)
+#             edit.user = current_user
+#             edit.save()
+#             return redirect('post')
+#     else:
+#         form = ProfileForm()
     
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES)
-        if form.is_valid():
-            edit = form.save(commit=False)
-            edit.user = request.user
-            edit.save()
-            return redirect('profile', username=request.user)
-    else:
-        form = ProfileForm()
-    
-    return render(request, 'django_registration/registration_complete.html', {'form':form, 'profile_details':profile_details})
+#     return render(request, 'django_registration/registration_complete.html', {'form':form})
