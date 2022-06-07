@@ -1,4 +1,4 @@
-#!/home/mariga/Documents/Code-stuff/Core/Django/marigagram/virtual/bin/python
+#!/home/mariga/Documents/Code-stuff/Core/Django/marigagram2/marigagram/virtual/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

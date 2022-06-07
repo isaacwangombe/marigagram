@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User as Editor
+from django.db.models import Sum
+
+
 
 
 # Create your models here.
@@ -35,56 +38,13 @@ class Profile(models.Model):
 
   @classmethod
   def get_by_id(cls, id):
-        profile = cls.objects.get(id=id)	
+        profile = cls.objects.filter(id=id).first()	
         return profile
 
-
-class Location(models.Model):
-  location = models.CharField(max_length=30)
-
-  def __str__(self):
-      return self.location
-
-  def save_location(self):
-    self.save()  	
-
-  def delete_location(self):
-    self.delete()	
-
-
-  def update_location(self, new_location):
-      try:
-          self.id = new_location
-          self.save()
-          return self
-      except self.DoesNotExist:
-            print('Image you specified does not exist') 
-
-class Tag(models.Model):
-  tag = models.CharField(max_length=30)
-
-  def __str__(self):
-      return self.tag
-
-  def save_tag(self):
-    self.save()  	
-
-  def delete_tag(self):
-    self.delete()	
-
-
-  def update_tag(self, new_tag):
-      try:
-          self.id = new_tag
-          self.save()
-          return self
-      except self.DoesNotExist:
-            print('Image you specified does not exist') 
-
   @classmethod
-  def get_all_tags(cls):
-        tag = Tag.objects.all()
-        return tag	
+  def get_by_user(cls, user):
+        profile = cls.objects.filter(user=user).first()
+        return profile
 
 
 
@@ -94,8 +54,6 @@ class Post(models.Model):
   caption = models.TextField(max_length=300)
   user = models.ForeignKey(Editor, on_delete=models.CASCADE, )
   post_time = models.DateTimeField(auto_now_add=True)
-  location = models.ManyToManyField(Location)
-  tag = models.ManyToManyField(Tag)
 
   def __str__(self):
     return str(self.id)
@@ -130,7 +88,7 @@ class Post(models.Model):
 
   @classmethod
   def search_by_user(id, user):
-        retrieved = id.objects.filter(user__user_name__contains=user)
+        retrieved = id.objects.filter(user=user)
         return retrieved
 
   @classmethod
@@ -138,7 +96,10 @@ class Post(models.Model):
         retrieved = id.objects.filter(user__user_name__contains=tag)
         return retrieved
 
-
+  @classmethod
+  def get_by_user(cls, user):
+        profile = cls.objects.filter(user=user).first	
+        return profile
 
 
 class Comment(models.Model):
@@ -167,3 +128,24 @@ class Comment(models.Model):
             print('Comment you specified does not exist') 
 
   
+class Vote(models.Model):
+  user = models.ForeignKey(Editor, on_delete=models.CASCADE)
+  post = models.ForeignKey(Post, on_delete=models.CASCADE)
+  vote= models.IntegerField()
+
+  def __str__(self):
+    return self.post
+
+  @classmethod
+  def get_votes(cls,post):
+      retrieved = cls.objects.filter(post=post)
+      return retrieved
+
+  @classmethod
+  def num_vote(cls):
+      found_votes = cls.objects.aggregate(Sum('vote'))
+      # found_votes = found_votes.filter(post=post)
+      total_votes = sum([i[0] for i in found_votes.all()])
+
+      return total_votes
+

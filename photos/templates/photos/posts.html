@@ -1,8 +1,9 @@
-{%extends 'photos/base.html'%} {% block content %} {{block.super}} {% for post in posts %}
+{%extends 'photos/base.html'%} {% load static %} {% block content %} {{block.super}} {% for post in posts %}
 <div class="container" style="display: grid ; place-items:center;">
     <div class="card mb-3" style="margin: 30px; max-width: 500px; max-height: auto;">
         <div class="card-body">
-            <h5 class="card-title">{{post.user}}</h5>
+            <h5 class="card-title">
+                <a href="{% url 'profile' post.user.id%}" style="text-decoration: none; color:black">{{post.user}}</a></h5>
             {% for profile in post.profile%}
             <p>{{about}}</p> {% endfor%}
             <!-- <img src="{{post.profile.}}" alt=""> -->
@@ -11,17 +12,23 @@
                 {% endfor%}</p>
         </div>
 
-        <img class="card-img-bottom" src="{{post.image.url}}" alt="Card image cap">
+        <a href="{% url 'photo' post.id%}"><img class="card-img-bottom" src="{{post.image.url}}" alt="Card image cap"></a>
         <div class="card-body">
+
             <h5 class="card-title">{{post.image_name}}</h5>
             <p class="card-text">{{post.caption}}</p>
-            <a href="{%url 'new_comment' post.id%}">All comments</a> {% for comment in post.comment_set.all%}
-            <p>{{comment.user}} :{{comment}}</p> {% endfor%}
+            <a href="{%url 'new_comment' post.id%}"><img src="{% static '/images/comment.png' %}" alt=""></a>
+            <ul class="list-group">
+                <li class="list-group-item active">Comments</li>
+
+                {% for comment in post.comment_set.all%}
+                <li class="list-group-item">{{comment.user}} :{{comment}}</li>
+            </ul>
+            {% endfor%}
             <p class="card-text"> {% for tag in post.tag.all%}
                 <p>{{tag}}</p>
                 {% endfor%}</p>
             <p class="card-text"><small class="text-muted">{{post.post_time}}</small></p>
-
 
         </div>
     </div>
