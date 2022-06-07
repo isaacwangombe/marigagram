@@ -11,9 +11,9 @@ from django.contrib.auth.models import User as Editor
 
 def post(request):
   posts = Post.get_all()
+  profile = Profile.get_all()
   
-  
-  return render(request,'photos/posts.html', {'posts' : posts})
+  return render(request,'photos/posts.html', {'posts' : posts, 'profile':profile})
 
 
 
