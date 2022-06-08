@@ -9,7 +9,7 @@ from django.urls import path
 urlpatterns=[
   path('', views.post,name = 'post'),
   path('photo/<id>',views.photo, name='photo' ),
-  path('user/', views.search_user,name = 'user'),
+  path('user/<user>', views.search_user,name = 'user'),
   path('post/new/', views.new_post, name='new_post'),
   path('new_comment/<id>',views.new_comment, name='new_comment' ),
   path('profile/<user>',views.profile, name='profile' ),

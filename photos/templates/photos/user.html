@@ -1,3 +1,8 @@
-<p>{{image.image_name}}</p>
-
-<p>Test</p>
+{% for post in posts%}
+<div class="row">
+    <div class="col-lg-6 mb-2 pr-lg-1">
+        <a href="{% url 'photo' post.id%}">
+            <img src="{{post.image.url}}" alt="" class="img-fluid rounded shadow-sm"></a>
+    </div>{% endfor%}
+    <p>{{posts.user}}</p>
+    <p>Test</p>

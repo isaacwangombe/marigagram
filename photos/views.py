@@ -13,6 +13,7 @@ def post(request):
   posts = Post.get_all()
   profile = Profile.get_all()
   
+  
   return render(request,'photos/posts.html', {'posts' : posts, 'profile':profile})
 
 
@@ -22,37 +23,19 @@ def photo(request, id):
 
   return render(request, 'photos/photo.html', {'post':post, 'id':id})
 
-# def search_user(request):
-#   if 'user' in request.GET and request.GET['user']:
-#     search_term = request.GET.get('user')
-#     user = Post.search_by_user(search_term)
-#     message = f'{search_term}'
-
-#     return render(request, 'photos/user.html', {'message':message, 'user':user})
-# 		# if it is a search bar:
-#   else :
-#     message = 'We have not found your search term'
-#     return render(request, 'photos/user.html', {'message':message})
 
 
-def search_user(request):
+def search_user(request, user):
     if 'category' in request.GET and request.GET['user']:
         search_term = request.GET.get('user')
-        images = Post.search_by_user(search_term)
+        posts = Post.search_by_user(user)
 
         message = f'{search_term}'
 
-        return render(request, 'photos/user.html', {'message':message, 'images':images})
+        return render(request, 'photos/user.html', {'message':message, 'posts':posts})
     else:
         message = 'You have not searched any term'
         return render(request, 'photos/user.html', {'message':message})
-
-# def search_user(request):
-# 		search_term = request.GET.get('tag')
-# 		name = Post.search_by_user(search_term)
-# 		message = f'{search_term}'
-
-# 		return render(request, 'photos/tag.html', {'message':message, 'name':name})
 
 
 
@@ -118,17 +101,3 @@ def update_profile(request):
 
   return render(request, 'django_registration/registration_complete.html', {'form': form})
 
-# @login_required(login_url='/accounts/login/')
-# def update_profile(request):
-#     current_user = request.user
-#     if request.method == 'POST':
-#         form = ProfileForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             edit = form.save(commit=False)
-#             edit.user = current_user
-#             edit.save()
-#             return redirect('post')
-#     else:
-#         form = ProfileForm()
-    
-#     return render(request, 'django_registration/registration_complete.html', {'form':form})
