@@ -15,6 +15,9 @@ from pathlib import Path
 import django_heroku
 from decouple import config,Csv
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 
 
@@ -168,3 +171,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 django_heroku.settings(locals())
+
+
+cloudinary.config( 
+  cloud_name = "dtj7bnapz", 
+  api_key = "955543347862628", 
+  api_secret = "fDcoDRd_45Ta9KTrg-KBQsqU9uM" 
+)

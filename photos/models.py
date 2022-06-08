@@ -1,13 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User as Editor
 from django.db.models import Sum
-
+from cloudinary.models import CloudinaryField
 
 
 
 # Create your models here.
 class Profile(models.Model):
-  profile_image = models.ImageField(upload_to='posts/', null=True, blank=True)
+  profile_image = CloudinaryField('image', null=True, blank=True)
   about = models.TextField(max_length=300, null=True, blank=True)
   user = models.ForeignKey(Editor, on_delete=models.CASCADE, null=True, blank=True )
 
@@ -49,11 +49,10 @@ class Profile(models.Model):
 
 
 class Post(models.Model):
-  image = models.ImageField(upload_to='posts/')
+  image = CloudinaryField('image', null=True, blank=True)
   image_name = models.CharField(max_length=30)
   caption = models.TextField(max_length=300)
   user = models.ForeignKey(Editor, on_delete=models.CASCADE, )
-  profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True )
   post_time = models.DateTimeField(auto_now_add=True)
 
   def __str__(self):
