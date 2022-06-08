@@ -3,7 +3,7 @@
 
     <div class="card align-items-center " style="width: 72%;height: 100px ; margin:20px; padding-bottom: 130px;">
         <div class="card-body d-inline-flex mb-3"> {% for profile in profile%}
-            <a href="{% url 'profile' profile.user.id%}" style="text-decoration: none; color:black; margin-left: 10px">
+            <a href="{% url 'profile' profile.user.id%}" style="text-decoration: none; color:black; margin-left: 10px; display: grid; place-items: center;">
 
                 <img src="{{profile.profile_image.url}}" class="border-gradient" style="border: double 3px transparent;border-radius: 50%;background-image: linear-gradient(white, white), radial-gradient(circle at top left, #f00,#3020ff);background-origin: border-box;background-clip: content-box, border-box;display: inline-block;box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);;height: 60px;width: 60px;object-fit: cover;margin-top: 1em;"
                     alt="...">
