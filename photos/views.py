@@ -25,12 +25,13 @@ def photo(request, id):
 
 
 
-def search_user(request, user):
-    if 'category' in request.GET and request.GET['user']:
-        search_term = request.GET.get('user')
-        posts = Post.search_by_user(user)
+def search_user(request):
+    if 'user' in request.GET and request.GET['user']:
+        search = request.GET.get('user')
+        posts = Post.search_by_user(search)
+        
 
-        message = f'{search_term}'
+        message = f'{search}'
 
         return render(request, 'photos/user.html', {'message':message, 'posts':posts})
     else:

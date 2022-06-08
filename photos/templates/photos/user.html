@@ -1,8 +1,35 @@
-{% for post in posts%}
-<div class="row">
-    <div class="col-lg-6 mb-2 pr-lg-1">
-        <a href="{% url 'photo' post.id%}">
-            <img src="{{post.image.url}}" alt="" class="img-fluid rounded shadow-sm"></a>
-    </div>{% endfor%}
-    <p>{{posts.user}}</p>
-    <p>Test</p>
+{% extends 'registration/base.html'%} {%load static%}{% load django_bootstrap5 %}{% block content %} {{block.super}} {% for post in posts %}
+
+<div class="container" style="display: grid ; place-items:center;">
+
+
+    <div class="card mb-3" style="margin: 30px;max-width: 500px; max-height: auto;">
+        <div class="card-body">
+            <h5 class="card-title">
+                <a href="{% url 'profile' post.user.id%}" style="text-decoration: none; color:black"> {{post.user}}</a>
+            </h5>
+        </div>
+
+        <a href="{% url 'photo' post.id%}"><img class="card-img-bottom" src="{{post.image.url}}" alt="Card image cap"></a>
+        <div class="card-body">
+
+            <h5 class="card-title">
+                {{post.image_name}}</h5>
+            <p class="card-text ">{{post.caption}}</p>
+            <a href="{%url 'new_comment' post.id%} "><img src="{% static '/images/comment.png' %} " alt=" "></a>
+            <ul class="list-group ">
+                <li class="list-group-item active ">Comments</li>
+
+                {% for comment in post.comment_set.all%}
+                <li class="list-group-item ">{{comment.user}} :{{comment}}</li>
+            </ul>
+            {% endfor%}
+            <p class="card-text "> {% for tag in post.tag.all%}
+                <p>{{tag}}</p>
+                {% endfor%}</p>
+            <p class="card-text "><small class="text-muted ">{{post.post_time}}</small></p>
+
+        </div>
+    </div>
+</div>
+{% endfor%} {% endblock%}

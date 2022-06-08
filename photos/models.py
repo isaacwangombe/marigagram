@@ -53,6 +53,7 @@ class Post(models.Model):
   image_name = models.CharField(max_length=30)
   caption = models.TextField(max_length=300)
   user = models.ForeignKey(Editor, on_delete=models.CASCADE, )
+  profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True  ) 
   post_time = models.DateTimeField(auto_now_add=True)
 
   def __str__(self):
@@ -87,14 +88,10 @@ class Post(models.Model):
         return post
 
   @classmethod
-  def search_by_user(id, user):
-        retrieved = id.objects.filter(user=user)
+  def search_by_user(id, search):
+        retrieved = id.objects.filter(user__username__icontains=search)
         return retrieved
 
-  @classmethod
-  def search_by_tag(id, tag):
-        retrieved = id.objects.filter(user__user_name__contains=tag)
-        return retrieved
 
   @classmethod
   def get_by_user(cls, user):
