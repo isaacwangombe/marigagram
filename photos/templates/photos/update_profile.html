@@ -1,6 +1,7 @@
 {%extends 'photos/base.html'%} {% load django_bootstrap5 %}{% block content %} {{block.super}}
 <div class="container">
 
+    <h2>Kindly upload a profile picture and tell us about yourself</h2>
     <form action="{% url 'post' %}" method="post" enctype="multipart/form-data">
         {%csrf_token%} {% bootstrap_form form%}
         <input type="submit" class="btn btn-success btn-lg" value="post">

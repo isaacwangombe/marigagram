@@ -1,9 +1,22 @@
 {%extends 'photos/base.html'%} {% load static %} {% block content %} {{block.super}} {% for post in posts %}
 <div class="container" style="display: grid ; place-items:center;">
+    {% for profile in profile%}
+    <div class="card align-items-center " style="width: 72%;height: 100px ; margin:20px; padding-bottom: 130px;">
+        <div class="card-body">
+            <a href="{% url 'profile' post.user.id%}" style="text-decoration: none; color:black">
+
+                <img src="{{profile.profile_image.url}}" class="border-gradient" style="border: double 3px transparent;border-radius: 50%;background-image: linear-gradient(white, white), radial-gradient(circle at top left, #f00,#3020ff);background-origin: border-box;background-clip: content-box, border-box;display: inline-block;box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);;height: 60px;width: 60px;object-fit: cover;margin-top: 1em;"
+                    alt="...">
+                <p>{{profile.user}}</p>
+            </a>
+            {% endfor%}
+        </div>
+    </div>
+
     <div class="card mb-3" style="margin: 30px; max-width: 500px; max-height: auto;">
         <div class="card-body">
             <h5 class="card-title">
-                <a href="{% url 'profile' post.user.id%}" style="text-decoration: none; color:black"><img src="{{profile.profile_image.url}}" class="img-thumbnail" style="height:60px ; width:60px; border-radius: 50%; object-fit: cover;" alt="..."> {{post.user}}</a>
+                <a href="{% url 'profile' post.user.id%}" style="text-decoration: none; color:black"> {{post.user}}</a>
             </h5>
         </div>
 
