@@ -17,20 +17,6 @@ This is a web application that mimics the Instagram experience, built with Djang
 **[Live-Link to site.](https://marigagram.herokuapp.com/)**
 
 
-
-# Specifications
-
-
-## BDD
-| Behavior            | Input                         | Output                        |
-| ------------------- | ----------------------------- | ----------------------------- |
-| Users can sign up for an account | Input credentials in the registration form then click Sign Up | Users are prompted to login into their account |
-| Users can view image posts by other accounts on their timelines | Click on a specific image to like| When liked the heart turns red |
-| Users can comment on other peoples posts | Click on add comments and press enter | The commet is displayed |
-| Users can view full details of a picture | Click on an image in the profile page | A modal class appears with all details of the image |
-| Users can post images | Click on Upload Image on the dropdown menu in the navbar | User will be able to upload an image |
-
-
 ## Setup/Installation Requirements
 
 ## Known Bugs
