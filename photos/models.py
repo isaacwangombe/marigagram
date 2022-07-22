@@ -80,6 +80,11 @@ class Post(models.Model):
         post = Post.objects.all()
         return post		
 
+  @classmethod
+  def get_first(cls):
+        post = Post.objects.first()
+        return post		
+
 
 
   @classmethod
