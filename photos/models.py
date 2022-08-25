@@ -91,6 +91,11 @@ class Post(models.Model):
   def get_by_id(cls, id):
         post = cls.objects.get(id=id)	
         return post
+        
+  @classmethod
+  def filter_by_user(cls, user):
+        post = cls.objects.filter(user=user)	
+        return post
 
   @classmethod
   def search_by_user(id, search):

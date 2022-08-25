@@ -81,7 +81,7 @@ def new_comment(request, id):
 def profile(request, user):
   profile = Profile.get_by_user(user)
   post = Post.get_by_user(user)
-  posts = Post.search_by_user(user)
+  posts = Post.filter_by_user(user)
 
   return render(request,'registration/profile.html', {'profile' : profile,  'post':post, 'user':user, 'posts':posts})
 

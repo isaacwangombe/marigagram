@@ -1,4 +1,4 @@
-{% load static %}
+{% load django_bootstrap5 %} {% load static%}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,28 +7,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block styles %} {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'nav.css' %}"> {% endblock %}
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a href="{% url 'post' %}"><img class="navbar-logo" src="{% static 'images/flaticon.png' %}" alt="image alt text" /></a>
+            <a href="{% url 'post' %}"><img class="navbar-logo" src="{% static 'images/flaticon.png' %}"
+                    alt="image alt text" /></a>
 
             <a class="navbar-brand" href="{% url 'post' %}">Marigagram</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        <div>
-        </div>
-      </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                <div>
+                </div>
+            </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     {% if user.is_authenticated %}
-                    <p>{{user}}</p>
-                    <li class="nav-item"> <a class="dropdown-item" href="{% url 'profile' user.id%}">Profile</a></li>
+                    <a class="dropdown-item" href="{% url 'profile' user.id%}">
+                        <li class="nav-item"></li>Hello {{user}}</li>
+                    </a>
+
+                    <li class="nav-item"> <a class="dropdown-item" href="{% url 'new_post'%}">new post</a></li>
+                    <div class="space"></div>
                     <li class="nav-item"><a class="dropdown-item" href="/logout">Logout</a></li>
-                    <li class="nav-item"> <a class="dropdown-item" href="{% url 'new_post'%}">new post</a></li> {% else %}
+                    {%else%}
                     <li class="nav-item"><a class="dropdown-item" href="/accounts/login">Login</a></li>
-                    <li class="nav-item"><a class="dropdown-item" class='btn btn-default' href="/accounts/register">Register</a></li> {% endif %}
+                    <li class="nav-item"><a class="dropdown-item" class='btn btn-default'
+                            href="/accounts/register">Register</a></li> {% endif %}
                 </ul>
                 <form class="navbar-form d-flex" role="search" action="{% url 'user' %}">
                     <div class="input-group">

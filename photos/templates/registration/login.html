@@ -1,6 +1,6 @@
 {% extends 'registration/base.html'%} {% load django_bootstrap5 %}{% block content %} {{block.super}}
 
-<div class="continer">
+<div class="continer center">
     <div class="message">
         {% if form.errors %}
         <p> Incorrect Password or Username </p>
@@ -10,7 +10,7 @@
     <form action="/accounts/login/" method="post">
         {% csrf_token %} {% bootstrap_form form%}
 
-        <div class="form-group">
+        <div class="form-group center">
             <input type="submit" class="btn btn-primary btn-sm" value="Sign Up">
         </div>
 

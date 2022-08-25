@@ -1,0 +1,19 @@
+.navbar-nav {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.collapse {
+  margin-left: 10vw;
+}
+
+.center {
+  display: grid;
+  place-items: center;
+}
+
+.nav-item {
+  width: 100%;
+  text-align: center;
+}

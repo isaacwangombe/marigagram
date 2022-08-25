@@ -1,0 +1,43 @@
+body {
+  background: linear-gradient(to right, #e96443, #904e95);
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: grid;
+  place-items: center;
+}
+
+form {
+  margin: 40px;
+  width: 40vw;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.575);
+  color: white;
+  border-radius: 5px;
+  box-shadow: 10px 10px 5px #904e95;
+}
+
+.btn {
+  margin: 5px;
+  border-style: solid;
+  border-color: #904e95;
+  width: fit-content;
+  padding: 10px 10px;
+  color: white;
+  font-size: 12px;
+  text-transform: uppercase;
+  transition: 0.5s;
+  letter-spacing: 4px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #c403f4;
+  color: #050801;
+  box-shadow: 0 0 5px #c403f4, 0 0 25px #c403f4, 0 0 50px #c403f4,
+    0 0 200px #c403f4;
+}
+
+.center {
+  display: grid;
+  place-items: center;
+}
